@@ -1,0 +1,27 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion compile_sdk
+    defaultConfig {
+        minSdkVersion min_sdk
+        targetSdkVersion target_sdk
+        versionCode base.utils_version_code
+        versionName base.utils_version_name
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "androidx.appcompat:appcompat:$androidx.appcompat"
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    implementation "com.google.guava:guava:$lib.guava_android"
+    implementation project(':base-core')
+}
+apply from: '../mavenpush.gradle'
