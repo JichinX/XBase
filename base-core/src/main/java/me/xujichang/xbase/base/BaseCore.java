@@ -1,5 +1,7 @@
 package me.xujichang.xbase.base;
 
+import android.app.Application;
+
 /**
  * Des:XBase - me.xujichang.XBase.base
  *
@@ -8,5 +10,14 @@ package me.xujichang.xbase.base;
  * <p>
  * modify:
  */
-public class BaseCore {
+public class BaseCore implements ModuleBase {
+    @Override
+    public void initFirst(Application application) {
+
+    }
+
+    @Override
+    public void initSlow(Application application) {
+
+    }
 }

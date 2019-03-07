@@ -5,8 +5,8 @@ android {
     defaultConfig {
         minSdkVersion min_sdk
         targetSdkVersion target_sdk
-        versionCode base.utils_version_code
-        versionName base.utils_version_name
+        versionCode base.utilsCode
+        versionName base.utils
     }
     buildTypes {
         release {
@@ -22,6 +22,11 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidx.appcompat"
     // https://mvnrepository.com/artifact/com.google.guava/guava
     implementation "com.google.guava:guava:$lib.guava_android"
+    // https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxjava
+    implementation "io.reactivex.rxjava2:rxjava:$lib.rxjava2"
+    // https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxandroid
+    implementation "io.reactivex.rxjava2:rxandroid:$lib.rxandroid"
+
     implementation project(':base-core')
 }
 apply from: '../mavenpush.gradle'

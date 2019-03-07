@@ -5,8 +5,8 @@ android {
     defaultConfig {
         minSdkVersion min_sdk
         targetSdkVersion target_sdk
-        versionCode base.demo_version_code
-        versionName base.demo_version_name
+        versionCode base.demoCode
+        versionName base.demo
         applicationId "me.xujichang.XBase"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -25,13 +25,21 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "androidx.appcompat:appcompat:$androidx.appcompat"
+
+    implementation "android.arch.navigation:navigation-fragment:$androidx.nav_version" // use
+    // -ktx for Kotlin
+    implementation "android.arch.navigation:navigation-ui:$androidx.nav_version" // use -ktx for
+    // Kotlin
     implementation "androidx.constraintlayout:constraintlayout:$androidx.constraintlayout"
+
+    implementation "androidx.legacy:legacy-support-v4:$androidx.legacyV4"
     testImplementation "junit:junit:$Junit"
     androidTestImplementation "androidx.test:runner:$androidx.test_runner"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidx.espresso_core"
     implementation project(':base-res')
     implementation project(':base-core')
-//    implementation "android.arch.work:work-runtime:$androidx.worker"
-//    // optional - RxJava2 support
-//    implementation "android.arch.work:work-rxjava2:$androidx.worker"
+    //    implementation "android.arch.work:work-runtime:$androidx.worker"
+    //    // optional - RxJava2 support
+    //    implementation "android.arch.work:work-rxjava2:$androidx.worker"
+    implementation project(':base-ui')
 }

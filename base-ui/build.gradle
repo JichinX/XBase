@@ -1,18 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
-
-
-
+    compileSdkVersion compile_sdk
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        minSdkVersion min_sdk
+        targetSdkVersion target_sdk
+        versionCode base.uiCode
+        versionName base.ui
     }
 
     buildTypes {
@@ -26,8 +20,16 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation "androidx.appcompat:appcompat:$androidx.appcompat"
+    implementation "androidx.constraintlayout:constraintlayout:$androidx.constraintlayout"
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    implementation "com.google.guava:guava:$lib.guava_android"
+    // https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxjava
+    implementation "io.reactivex.rxjava2:rxjava:$lib.rxjava2"
+    // https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxandroid
+    implementation "io.reactivex.rxjava2:rxandroid:$lib.rxandroid"
+    implementation "com.google.android.material:material:$androidx.material"
+    implementation project(':base-res')
+    implementation project(':base-utils')
 }
+apply from: '../mavenpush.gradle'

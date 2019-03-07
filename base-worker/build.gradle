@@ -5,8 +5,8 @@ android {
     defaultConfig {
         minSdkVersion min_sdk
         targetSdkVersion target_sdk
-        versionCode base.worker_version_code
-        versionName base.worker_version_name
+        versionCode base.workerCode
+        versionName base.worker
     }
 
     buildTypes {

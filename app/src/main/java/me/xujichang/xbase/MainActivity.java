@@ -1,49 +1,29 @@
 package me.xujichang.xbase;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.work.Constraints;
-import androidx.work.NetworkType;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkInfo;
-import androidx.work.WorkManager;
-import androidx.work.Worker;
-import androidx.work.WorkerParameters;
-
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
-import java.util.concurrent.TimeUnit;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.Navigation;
+import me.xujichang.xbase.ui.activity.BaseActionBarActivity;
 
-public class MainActivity extends AppCompatActivity {
-    private             OneTimeWorkRequest  mOneTimeRequest;
-    private             PeriodicWorkRequest mPeriodicWorkRequest;
-    public static final String              TAG = "MainActivity";
+public class MainActivity extends BaseActionBarActivity {
+
+    public static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initActionBar();
+    }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        return Navigation.findNavController(getCompatActivity(), R.id.nav_main_host).navigateUp();
+    }
 
-        Constraints constraints =
-                new Constraints.Builder()
-                        .setRequiredNetworkType(NetworkType.CONNECTED)
-                        .build();
-        mOneTimeRequest =
-                new OneTimeWorkRequest
-                        .Builder(CompressWorker.class)
-                        .setConstraints(constraints)
-                        .addTag("OneTime")
-                        .build();
-        mPeriodicWorkRequest = new PeriodicWorkRequest
-                .Builder(PhotoCheckWorker.class, 900_000L, TimeUnit.MILLISECONDS)
-                .addTag("Period")
-                .build();
-        WorkManager.getInstance().enqueue(mOneTimeRequest);
-        WorkManager.getInstance().enqueue(mPeriodicWorkRequest);
+    private void initActionBar() {
+        showBackArrow();
+        setCenterActionBarTitle("首页");
     }
 }

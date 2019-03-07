@@ -9,6 +9,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 import me.xujichang.xbase.net.NetConst;
+import me.xujichang.xbase.net.convert.NullOnEmptyConverterFactory;
+import me.xujichang.xbase.net.cookie.ReadCookiesInterceptor;
+import me.xujichang.xbase.net.cookie.SaveCookiesInterceptor;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -31,12 +34,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * created by 2018/7/26 - 4:48 PM
  */
 public final class RetrofitCenter {
-    public static volatile String              tokenValue;
+    public static volatile String tokenValue;
     /**
      * 通过将baseUrl 与对应的retrofit来进行绑定，避免过多的创建Retrofit对象
      */
     private static final Map<String, Retrofit> RETROFIT_MAP = new ConcurrentHashMap<>();
-    public static final String                 URL_TAG      = "REMOTE_URL";
+    public static final String URL_TAG = "REMOTE_URL";
 
     public static void init(String baseUrl, ClientConfig clientConfig) {
         init(baseUrl, clientConfig, null, null);
@@ -119,6 +122,7 @@ public final class RetrofitCenter {
             }
         }
         //使用Gson转换
+        builder.addConverterFactory(NullOnEmptyConverterFactory.create());
         builder.addConverterFactory(GsonConverterFactory.create());
         //其他转换
         if (null != converters) {
@@ -171,6 +175,8 @@ public final class RetrofitCenter {
                 builder.addInterceptor(interceptor);
             }
         }
+        builder.addInterceptor(new SaveCookiesInterceptor());
+        builder.addInterceptor(new ReadCookiesInterceptor());
         return builder.build();
     }
 
@@ -190,11 +196,11 @@ public final class RetrofitCenter {
      * 创建OkHttpClient的配置类
      */
     public static final class ClientConfig {
-        long              connectTimeOut;
-        long              readTimeOut;
-        long              writeTimeOut;
+        long connectTimeOut;
+        long readTimeOut;
+        long writeTimeOut;
         List<Interceptor> interceptors;
-        List<IExtInfo>    extInfos;
+        List<IExtInfo> extInfos;
 
         private ClientConfig(Builder builder) {
             connectTimeOut = builder.connectTimeOut;
@@ -208,11 +214,11 @@ public final class RetrofitCenter {
         }
 
         public static final class Builder {
-            private long              connectTimeOut = TimeUnit.SECONDS.toMillis(15);
-            private long              readTimeOut    = TimeUnit.SECONDS.toMillis(50);
-            private long              writeTimeOut   = TimeUnit.SECONDS.toMillis(50);
-            private List<Interceptor> interceptors   = new ArrayList<>();
-            private List<IExtInfo>    extInfos       = new ArrayList<>();
+            private long connectTimeOut = TimeUnit.SECONDS.toMillis(15);
+            private long readTimeOut = TimeUnit.SECONDS.toMillis(50);
+            private long writeTimeOut = TimeUnit.SECONDS.toMillis(50);
+            private List<Interceptor> interceptors = new ArrayList<>();
+            private List<IExtInfo> extInfos = new ArrayList<>();
 
             public Builder() {
             }

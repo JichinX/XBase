@@ -1,5 +1,7 @@
 package me.xujichang.xbase.base;
 
+import android.app.Application;
+
 /**
  * Des:XBase - me.xujichang.XBase.base
  *
@@ -9,4 +11,8 @@ package me.xujichang.xbase.base;
  * modify:
  */
 public interface ModuleBase {
+
+    void initFirst(Application application);
+
+    void initSlow(Application application);
 }

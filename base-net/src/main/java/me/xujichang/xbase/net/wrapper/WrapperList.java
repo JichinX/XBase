@@ -6,7 +6,7 @@ import java.util.List;
  * Created by xjc on 2017/10/9.
  */
 
-public class WrapperList<T> {
+public class WrapperList<T>  {
     private int     total;
     private int     page;
     private int     size;
@@ -47,4 +47,5 @@ public class WrapperList<T> {
     public boolean isOK() {
         return null != list;
     }
+
 }

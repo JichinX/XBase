@@ -5,8 +5,8 @@ android {
     defaultConfig {
         minSdkVersion min_sdk
         targetSdkVersion target_sdk
-        versionCode base.net_version_code
-        versionName base.net_version_name
+        versionCode base.netCode
+        versionName base.net
     }
 
     buildTypes {
@@ -40,6 +40,7 @@ dependencies {
     // https://mvnrepository.com/artifact/com.squareup.okhttp3/logging-interceptor
     implementation "com.squareup.okhttp3:logging-interceptor:$lib.okhttp"
     implementation project(':base-core')
+    implementation project(':base-utils')
 }
 apply from: '../mavenpush.gradle'
 

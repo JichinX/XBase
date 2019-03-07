@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion min_sdk
         targetSdkVersion target_sdk
-        versionCode base.core_version_code
-        versionName base.core_version_name
+        versionCode base.coreCode
+        versionName base.core
     }
 
     buildTypes {

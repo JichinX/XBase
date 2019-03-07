@@ -4,14 +4,15 @@ package me.xujichang.xbase.net.wrapper;
  * Created by xjc on 2017/9/28.
  */
 
-public class WrapperEntity<T> {
-    private int    code;
+public class WrapperEntity<T> implements IWrapper<T> {
+    private int code;
     private String message;
-    private T      data;
+    private T data;
 
     public int getCode() {
         return code;
     }
+
 
     public void setCode(int code) {
         this.code = code;
@@ -31,5 +32,20 @@ public class WrapperEntity<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    @Override
+    public int get_Code() {
+        return code;
+    }
+
+    @Override
+    public String get_Msg() {
+        return message;
+    }
+
+    @Override
+    public T get_Data() {
+        return data;
     }
 }

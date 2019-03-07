@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main_page"
+    app:startDestination="@+id/nav_main_page_one">
+    <fragment
+        android:id="@+id/nav_main_page_one"
+        android:name="me.xujichang.xbase.navigation.MainPageOne"
+        android:label="Page One"
+        tools:layout="@layout/demo_layout_fragment_main_page_one">
+        <action
+            android:id="@+id/action_nav_one_next"
+            app:destination="@id/nav_main_page_two"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_main_page_two"
+        android:name="me.xujichang.xbase.navigation.MainPageTwo"
+        android:label="Page Two"
+        tools:layout="@layout/demo_layout_fragment_main_page_two">
+        <action
+            android:id="@+id/action_nav_two_next"
+            app:destination="@id/nav_main_page_three"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_nav_two_back"
+            app:destination="@id/nav_main_page_one"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_main_page_three"
+        android:name="me.xujichang.xbase.navigation.MainPageThree"
+        android:label="Page Three"
+        tools:layout="@layout/demo_layout_fragment_main_page_three">
+        <action
+            android:id="@+id/action_nav_three_back"
+            app:destination="@id/nav_main_page_two"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+</navigation>
