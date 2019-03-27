@@ -5,8 +5,8 @@ android {
     defaultConfig {
         minSdkVersion min_sdk
         targetSdkVersion target_sdk
-        versionCode base.resCode
-        versionName base.res
+        versionCode 1000
+        versionName '1.0.0.0'
     }
 
     buildTypes {
