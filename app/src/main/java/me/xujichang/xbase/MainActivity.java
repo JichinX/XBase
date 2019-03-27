@@ -3,10 +3,8 @@ package me.xujichang.xbase;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.Navigation;
-import me.xujichang.xbase.ui.activity.BaseActionBarActivity;
 
-public class MainActivity extends BaseActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
 
@@ -14,16 +12,6 @@ public class MainActivity extends BaseActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initActionBar();
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        return Navigation.findNavController(getCompatActivity(), R.id.nav_main_host).navigateUp();
-    }
-
-    private void initActionBar() {
-        showBackArrow();
-        setCenterActionBarTitle("首页");
-    }
 }
