@@ -39,6 +39,8 @@ import me.xujichang.xbase.ui.R;
  * modify:
  */
 public class BaseActionBarActivity extends BaseActivity {
+    private static final int DEFAULT_TITLE_SIZE = 18;
+    private static final int DEFAULT_TEXT_COLOR = Color.DKGRAY;
     /**
      * ActionBar Title
      */
@@ -72,6 +74,18 @@ public class BaseActionBarActivity extends BaseActivity {
     private ConstraintLayout mClActionbarContainer;
     private TextView mActionbarTitle;
     private TabLayout mActionbarTitles;
+    /**
+     * 状态栏文字颜色
+     */
+    private int textColor = DEFAULT_TEXT_COLOR;
+    /**
+     * title 文字大小
+     */
+    private int titleSize = 18;
+    /**
+     * 状态栏背景色
+     */
+    private int bgColor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -108,32 +122,46 @@ public class BaseActionBarActivity extends BaseActivity {
     /**
      * 设置Title
      *
-     * @param text title
-     */
-    protected void setCenterActionBarTitle(String text) {
-        mCenterActionBarTitleContainer.removeAllViews();
-        mActionbarTitle = createTextView(text, 18);
-        mCenterActionBarTitleContainer.addView(mActionbarTitle);
-    }
-
-    /**
-     * 设置Title
-     *
-     * @param text title
-     */
-    protected void setCenterActionBarTitle(String text, @ColorRes int resId) {
-        mCenterActionBarTitleContainer.removeAllViews();
-        mActionbarTitle = createTextView(text, 18, resId);
-        mCenterActionBarTitleContainer.addView(mActionbarTitle);
-    }
-
-    /**
-     * 设置Title
-     *
      * @param res res
      */
     protected void setCenterActionBarTitle(@StringRes int res) {
         setCenterActionBarTitle(getResources().getString(res));
+    }
+
+    /**
+     * 设置Title
+     *
+     * @param text title
+     */
+    protected void setCenterActionBarTitle(String text) {
+        setActionBarTitle(text, titleSize, textColor);
+    }
+
+    /**
+     * 设置Title
+     *
+     * @param text  title
+     * @param resId 状态栏文字颜色
+     */
+    protected void setCenterActionBarTitle(String text, @ColorRes int resId) {
+        setActionBarTitle(text, titleSize, getResources().getColor(resId));
+    }
+
+    protected void setCenterActionBarTitle(String text, int size, @ColorRes int resId) {
+        setActionBarTitle(text, size, getResources().getColor(resId));
+    }
+
+    /**
+     * 设置Title
+     *
+     * @param text  title
+     * @param size  文字大小
+     * @param color 状态栏文字颜色
+     */
+    protected void setActionBarTitle(String text, int size, int color) {
+        mCenterActionBarTitleContainer.removeAllViews();
+        mActionbarTitle = createTextView(text, size, color);
+        mCenterActionBarTitleContainer.addView(mActionbarTitle);
     }
 
     /**
@@ -283,7 +311,7 @@ public class BaseActionBarActivity extends BaseActivity {
         textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
         TextViewCompat.setAutoSizeTextTypeWithDefaults(textView,
                 TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
-        textView.setTextColor(Color.WHITE);
+        textView.setTextColor(textColor);
         return textView;
     }
 
@@ -301,7 +329,7 @@ public class BaseActionBarActivity extends BaseActivity {
      * @param text
      * @return
      */
-    protected TextView createTextView(String text, float size, @ColorRes int resId) {
+    protected TextView createTextView(String text, float size, int color) {
         TextView textView = new TextView(getContext());
         textView.setText(text);
         if (size > 0) {
@@ -312,7 +340,7 @@ public class BaseActionBarActivity extends BaseActivity {
         textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
         TextViewCompat.setAutoSizeTextTypeWithDefaults(textView,
                 TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
-        textView.setTextColor(getResources().getColor(resId));
+        textView.setTextColor(color);
         return textView;
     }
 
@@ -335,13 +363,21 @@ public class BaseActionBarActivity extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
+
     //颜色  主题
 
     /**
      * 设置背景
      */
     protected void setActionBarBackground(@ColorRes int resId) {
-        mClActionbarContainer.setBackgroundResource(resId);
+        int color = getResources().getColor(resId);
+        bgColor = color;
+        mClActionbarContainer.setBackgroundColor(bgColor);
+    }
+
+    protected void setTextColor(@ColorRes int resId) {
+        int color = getResources().getColor(resId);
+        textColor = color;
     }
 
     protected void setCenterActionBarTitles(ArrayList<String> titles, TabLayout.OnTabSelectedListener listener) {

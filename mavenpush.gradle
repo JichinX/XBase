@@ -1,32 +1,33 @@
-apply plugin: 'com.github.dcendents.android-maven'
+apply from: 'https://raw.githubusercontent.com/xujichang/CommonConfig/master/gradle/jitpack.gradle'
+//apply plugin: 'com.github.dcendents.android-maven'
 //上传Maven 用到的是 com.github.dcendents.android-maven
-uploadArchives {
-    repositories.mavenDeployer {
-        repository(url: LOCAL_REPO_URL)
-        pom.groupId = GROUP_ID
-        pom.artifactId = project.name
-        pom.version = android.defaultConfig.versionName
-    }
-}
+//uploadArchives {
+//    repositories.mavenDeployer {
+//        repository(url: LOCAL_REPO_URL)
+//        pom.groupId = GROUP_ID
+//        pom.artifactId = project.name
+//        pom.version = android.defaultConfig.versionName
+//    }
+//}
 //生成source.jar和JavaDoc
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    options.encoding "UTF-8"
-    options.charSet 'UTF-8'
-    failOnError = false
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
+//task sourcesJar(type: Jar) {
+//    from android.sourceSets.main.java.srcDirs
+//    classifier = 'sources'
+//}
+//
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    options.encoding "UTF-8"
+//    options.charSet 'UTF-8'
+//    failOnError = false
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+//
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+//artifacts {
+//    archives javadocJar
+//    archives sourcesJar
+//}

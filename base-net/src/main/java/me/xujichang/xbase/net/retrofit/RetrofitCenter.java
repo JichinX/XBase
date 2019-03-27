@@ -40,6 +40,11 @@ public final class RetrofitCenter {
      */
     private static final Map<String, Retrofit> RETROFIT_MAP = new ConcurrentHashMap<>();
     public static final String URL_TAG = "REMOTE_URL";
+    public static final List<Converter.Factory> CONVERTERS = new ArrayList<>();
+
+    public static void addConverter(Converter.Factory factory) {
+        CONVERTERS.add(factory);
+    }
 
     public static void init(String baseUrl, ClientConfig clientConfig) {
         init(baseUrl, clientConfig, null, null);
@@ -121,15 +126,20 @@ public final class RetrofitCenter {
                 builder.addCallAdapterFactory(callAdapter);
             }
         }
-        //使用Gson转换
-        builder.addConverterFactory(NullOnEmptyConverterFactory.create());
-        builder.addConverterFactory(GsonConverterFactory.create());
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        //全具转化优先
+        for (Converter.Factory converter : CONVERTERS) {
+            builder.addConverterFactory(converter);
+        }
         //其他转换
         if (null != converters) {
             for (Converter.Factory converter : converters) {
                 builder.addConverterFactory(converter);
             }
         }
+        //使用Gson转换
+        builder.addConverterFactory(GsonConverterFactory.create());
+        ////////////////////////////////////////////////////////////////////////////////////////////
         if (null == httpClient) {
             builder.client(createHttpClient());
         } else {
