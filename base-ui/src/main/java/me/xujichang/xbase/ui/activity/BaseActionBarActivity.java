@@ -1,5 +1,6 @@
 package me.xujichang.xbase.ui.activity;
 
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -89,6 +90,7 @@ public class BaseActionBarActivity extends BaseActivity {
      * 状态栏背景色
      */
     private int bgColor;
+    private int actionBarSize;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -113,6 +115,10 @@ public class BaseActionBarActivity extends BaseActivity {
     }
 
     private void initActionBarView() {
+        TypedArray actionbarSizeTypedArray = obtainStyledAttributes(new int[]{android.R.attr.actionBarSize});
+        float h = actionbarSizeTypedArray.getDimension(0, 0);
+        actionBarSize = (int) h;
+        actionbarSizeTypedArray.recycle();
         mCenterActionBarTitleContainer = findViewById(R.id.center_action_bar_title_container);
         mCenterActionBarLeftContainer = findViewById(R.id.center_action_bar_left_container);
         mCenterActionBarRightContainer = findViewById(R.id.center_action_bar_right_container);
@@ -407,7 +413,7 @@ public class BaseActionBarActivity extends BaseActivity {
         }
         textView.setGravity(Gravity.CENTER);
         textView.setMaxLines(1);
-        textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        textView.setLayoutParams(new ViewGroup.LayoutParams(actionBarSize, actionBarSize));
         TextViewCompat.setAutoSizeTextTypeWithDefaults(textView,
                 TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
         textView.setTextColor(textColor);
@@ -437,7 +443,7 @@ public class BaseActionBarActivity extends BaseActivity {
         }
         textView.setGravity(Gravity.CENTER);
         textView.setMaxLines(1);
-        textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        textView.setLayoutParams(new ViewGroup.LayoutParams(actionBarSize, actionBarSize));
         TextViewCompat.setAutoSizeTextTypeWithDefaults(textView,
                 TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
         textView.setTextColor(color);
@@ -454,8 +460,7 @@ public class BaseActionBarActivity extends BaseActivity {
     protected ImageView createImageView(Drawable drawable) {
         ImageView imageView = new ImageView(getContext());
         imageView.setAdjustViewBounds(true);
-        imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
+        imageView.setLayoutParams(new ViewGroup.LayoutParams(actionBarSize, actionBarSize));
         imageView.setImageDrawable(drawable);
         return imageView;
     }

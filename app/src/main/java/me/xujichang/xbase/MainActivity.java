@@ -2,9 +2,9 @@ package me.xujichang.xbase;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
+import me.xujichang.xbase.ui.activity.BaseActionBarActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActionBarActivity {
 
     public static final String TAG = "MainActivity";
 
@@ -13,5 +13,4 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
 }

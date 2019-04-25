@@ -36,6 +36,8 @@ dependencies {
     testImplementation "junit:junit:$Junit"
     androidTestImplementation "androidx.test:runner:$androidx.test_runner"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidx.espresso_core"
+    implementation project(path: ':base-ui')
+    implementation project(path: ':base-utils')
 //    implementation project(':base-res')
 //    implementation project(':base-core')
     //    implementation "android.arch.work:work-runtime:$androidx.worker"
