@@ -236,7 +236,7 @@ public class BaseActionBarActivity extends BaseActivity {
 
     protected void showRightText(@StringRes int resId) {
         if (null == mRightText) {
-            mRightText = addLeftText(getResources().getString(resId));
+            mRightText = addRightText(getResources().getString(resId));
         }
         mRightText.setVisibility(View.VISIBLE);
         mRightText.setText(getResources().getText(resId));
@@ -244,7 +244,7 @@ public class BaseActionBarActivity extends BaseActivity {
 
     protected void showRightImg(@DrawableRes int resId) {
         if (null == mRightImg) {
-            mRightImg = addLeftImg(getResources().getDrawable(resId));
+            mRightImg = addRightImg(getResources().getDrawable(resId));
         }
         mRightImg.setVisibility(View.VISIBLE);
         mRightImg.setImageResource(resId);
