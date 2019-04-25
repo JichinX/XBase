@@ -27,6 +27,8 @@ import androidx.constraintlayout.widget.Group;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.viewpager.widget.ViewPager;
+
+import me.xujichang.xbase.baseutils.shake.XOnClickListener;
 import me.xujichang.xbase.ui.R;
 
 /**
@@ -69,6 +71,7 @@ public class BaseActionBarActivity extends BaseActivity {
      * 右侧图标
      */
     private ImageView mRightImg;
+
     private Group mGroupActionbar;
     private boolean mCustombackPressed = false;
     private ConstraintLayout mClActionbarContainer;
@@ -122,7 +125,8 @@ public class BaseActionBarActivity extends BaseActivity {
     /**
      * 设置Title
      *
-     * @param res res
+     * @param res
+     *         res
      */
     protected void setCenterActionBarTitle(@StringRes int res) {
         setCenterActionBarTitle(getResources().getString(res));
@@ -131,7 +135,8 @@ public class BaseActionBarActivity extends BaseActivity {
     /**
      * 设置Title
      *
-     * @param text title
+     * @param text
+     *         title
      */
     protected void setCenterActionBarTitle(String text) {
         setActionBarTitle(text, titleSize, textColor);
@@ -140,8 +145,10 @@ public class BaseActionBarActivity extends BaseActivity {
     /**
      * 设置Title
      *
-     * @param text  title
-     * @param resId 状态栏文字颜色
+     * @param text
+     *         title
+     * @param resId
+     *         状态栏文字颜色
      */
     protected void setCenterActionBarTitle(String text, @ColorRes int resId) {
         setActionBarTitle(text, titleSize, getResources().getColor(resId));
@@ -154,9 +161,12 @@ public class BaseActionBarActivity extends BaseActivity {
     /**
      * 设置Title
      *
-     * @param text  title
-     * @param size  文字大小
-     * @param color 状态栏文字颜色
+     * @param text
+     *         title
+     * @param size
+     *         文字大小
+     * @param color
+     *         状态栏文字颜色
      */
     protected void setActionBarTitle(String text, int size, int color) {
         mCenterActionBarTitleContainer.removeAllViews();
@@ -209,35 +219,115 @@ public class BaseActionBarActivity extends BaseActivity {
     }
 
     protected void showLeftText(@StringRes int resId) {
-        addLeftText(getResources().getString(resId));
+        if (null == mLeftText) {
+            mLeftText = addLeftText(getResources().getString(resId));
+        }
+        mLeftText.setVisibility(View.VISIBLE);
+        mLeftText.setText(getResources().getText(resId));
     }
 
     protected void showLeftImg(@DrawableRes int resId) {
-        addLeftImg(getResources().getDrawable(resId));
+        if (null == mLeftImg) {
+            mLeftImg = addLeftImg(getResources().getDrawable(resId));
+        }
+        mLeftImg.setVisibility(View.VISIBLE);
+        mLeftImg.setImageResource(resId);
     }
 
     protected void showRightText(@StringRes int resId) {
-        addRightText(getResources().getString(resId));
+        if (null == mRightText) {
+            mRightText = addLeftText(getResources().getString(resId));
+        }
+        mRightText.setVisibility(View.VISIBLE);
+        mRightText.setText(getResources().getText(resId));
     }
 
     protected void showRightImg(@DrawableRes int resId) {
-        addRightImg(getResources().getDrawable(resId));
+        if (null == mRightImg) {
+            mRightImg = addLeftImg(getResources().getDrawable(resId));
+        }
+        mRightImg.setVisibility(View.VISIBLE);
+        mRightImg.setImageResource(resId);
     }
 
-    protected void addLeftText(String text) {
-        addLeftView(createTextView(text));
+    protected void showRightImage() {
+        if (null == mRightImg) {
+            return;
+        }
+        mRightImg.setVisibility(View.VISIBLE);
     }
 
-    protected void addRightText(String text) {
-        addRightView(createTextView(text));
+    protected void showRightText() {
+        if (null == mRightText) {
+            return;
+        }
+        mRightText.setVisibility(View.VISIBLE);
     }
 
-    protected void addLeftImg(Drawable drawable) {
-        addLeftView(createImageView(drawable));
+    protected void showLeftImage() {
+        if (null == mLeftImg) {
+            return;
+        }
+        mLeftImg.setVisibility(View.VISIBLE);
     }
 
-    protected void addRightImg(Drawable drawable) {
-        addRightView(createImageView(drawable));
+    protected void showLeftText() {
+        if (null == mLeftText) {
+            return;
+        }
+        mLeftText.setVisibility(View.VISIBLE);
+    }
+
+    protected void hideRightImage() {
+        if (null == mRightImg) {
+            return;
+        }
+        mRightImg.setVisibility(View.GONE);
+    }
+
+    protected void hideRightText() {
+        if (null == mRightText) {
+            return;
+        }
+        mRightText.setVisibility(View.GONE);
+    }
+
+    protected void hideLeftImage() {
+        if (null == mLeftImg) {
+            return;
+        }
+        mLeftImg.setVisibility(View.GONE);
+    }
+
+    protected void hideLeftText() {
+        if (null == mLeftText) {
+            return;
+        }
+        mLeftText.setVisibility(View.GONE);
+    }
+
+    protected TextView addLeftText(String text) {
+        TextView mTextView = createTextView(text);
+        addLeftView(mTextView);
+        return mTextView;
+    }
+
+    protected TextView addRightText(String text) {
+        TextView mTextView = createTextView(text);
+        addRightView(mTextView);
+        return mTextView;
+    }
+
+    protected ImageView addLeftImg(Drawable drawable) {
+        ImageView mView = createImageView(drawable);
+        addLeftView(mView);
+        return mView;
+    }
+
+    protected ImageView addRightImg(Drawable drawable) {
+        ImageView mView = createImageView(drawable);
+        addRightView(mView);
+        return mView;
     }
 
     protected void addLeftView(View view) {
@@ -265,6 +355,14 @@ public class BaseActionBarActivity extends BaseActivity {
 
     protected void deleteRightView(View view) {
         deleteViewForContainer(mCenterActionBarRightContainer, view);
+    }
+
+    protected void setRightAreaClick(XOnClickListener<View> onClickListener) {
+        proxyClick(mCenterActionBarRightContainer, onClickListener);
+    }
+
+    protected void setLeftAreaClick(XOnClickListener<View> onClickListener) {
+        proxyClick(mCenterActionBarLeftContainer, onClickListener);
     }
 
     /**
@@ -298,6 +396,7 @@ public class BaseActionBarActivity extends BaseActivity {
      * 创建TextView
      *
      * @param text
+     *
      * @return
      */
     protected TextView createTextView(String text, float size) {
@@ -327,6 +426,7 @@ public class BaseActionBarActivity extends BaseActivity {
      * 创建TextView
      *
      * @param text
+     *
      * @return
      */
     protected TextView createTextView(String text, float size, int color) {
@@ -348,6 +448,7 @@ public class BaseActionBarActivity extends BaseActivity {
      * 创建ImageView
      *
      * @param drawable
+     *
      * @return
      */
     protected ImageView createImageView(Drawable drawable) {
