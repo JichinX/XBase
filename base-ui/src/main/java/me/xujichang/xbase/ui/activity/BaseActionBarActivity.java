@@ -176,7 +176,7 @@ public class BaseActionBarActivity extends BaseActivity {
      */
     protected void setActionBarTitle(String text, int size, int color) {
         mCenterActionBarTitleContainer.removeAllViews();
-        mActionbarTitle = createTextView(text, size, color);
+        mActionbarTitle = createTextView(text, size, color, true);
         mCenterActionBarTitleContainer.addView(mActionbarTitle);
     }
 
@@ -406,18 +406,19 @@ public class BaseActionBarActivity extends BaseActivity {
      * @return
      */
     protected TextView createTextView(String text, float size) {
-        TextView textView = new TextView(getContext());
-        textView.setText(text);
-        if (size > 0) {
-            textView.setTextSize(size);
-        }
-        textView.setGravity(Gravity.CENTER);
-        textView.setMaxLines(1);
-        textView.setLayoutParams(new ViewGroup.LayoutParams(actionBarSize, actionBarSize));
-//        TextViewCompat.setAutoSizeTextTypeWithDefaults(textView,
-//                TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
-        textView.setTextColor(textColor);
-        return textView;
+        return createTextView(text, size, textColor, false);
+//        TextView textView = new TextView(getContext());
+//        textView.setText(text);
+//        if (size > 0) {
+//            textView.setTextSize(size);
+//        }
+//        textView.setGravity(Gravity.CENTER);
+//        textView.setMaxLines(1);
+//        textView.setLayoutParams(new ViewGroup.LayoutParams(actionBarSize, actionBarSize));
+////        TextViewCompat.setAutoSizeTextTypeWithDefaults(textView,
+////                TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+//        textView.setTextColor(textColor);
+//        return textView;
     }
 
     protected TextView createTextView(String text) {
@@ -435,7 +436,7 @@ public class BaseActionBarActivity extends BaseActivity {
      *
      * @return
      */
-    protected TextView createTextView(String text, float size, int color) {
+    protected TextView createTextView(String text, float size, int color, boolean wrapWidth) {
         TextView textView = new TextView(getContext());
         textView.setText(text);
         if (size > 0) {
@@ -443,9 +444,13 @@ public class BaseActionBarActivity extends BaseActivity {
         }
         textView.setGravity(Gravity.CENTER);
         textView.setMaxLines(1);
-        textView.setLayoutParams(new ViewGroup.LayoutParams(actionBarSize, actionBarSize));
-//        TextViewCompat.setAutoSizeTextTypeWithDefaults(textView,
-//                TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        if (wrapWidth) {
+            textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            TextViewCompat.setAutoSizeTextTypeWithDefaults(textView,
+                    TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        } else {
+            textView.setLayoutParams(new ViewGroup.LayoutParams(actionBarSize, actionBarSize));
+        }
         textView.setTextColor(color);
         return textView;
     }
