@@ -414,8 +414,8 @@ public class BaseActionBarActivity extends BaseActivity {
         textView.setGravity(Gravity.CENTER);
         textView.setMaxLines(1);
         textView.setLayoutParams(new ViewGroup.LayoutParams(actionBarSize, actionBarSize));
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(textView,
-                TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+//        TextViewCompat.setAutoSizeTextTypeWithDefaults(textView,
+//                TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
         textView.setTextColor(textColor);
         return textView;
     }
@@ -444,8 +444,8 @@ public class BaseActionBarActivity extends BaseActivity {
         textView.setGravity(Gravity.CENTER);
         textView.setMaxLines(1);
         textView.setLayoutParams(new ViewGroup.LayoutParams(actionBarSize, actionBarSize));
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(textView,
-                TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+//        TextViewCompat.setAutoSizeTextTypeWithDefaults(textView,
+//                TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
         textView.setTextColor(color);
         return textView;
     }
@@ -461,6 +461,7 @@ public class BaseActionBarActivity extends BaseActivity {
         ImageView imageView = new ImageView(getContext());
         imageView.setAdjustViewBounds(true);
         imageView.setLayoutParams(new ViewGroup.LayoutParams(actionBarSize, actionBarSize));
+        imageView.setScaleType(ImageView.ScaleType.CENTER);
         imageView.setImageDrawable(drawable);
         return imageView;
     }
